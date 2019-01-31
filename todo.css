@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font: 14px "Hiragino Kaku Gothic Pro";
+    margin: 0;
+    padding: 0;
+    color: #313131;
+    line-height: 150%;
+    background-color: lightskyblue;
+}
+
+a {
+    color: #808080;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+header {
+    background: #2979FF;
+    height: 50px;
+}
+
+header h2 {
+    margin: 0 0 0 20px;
+    color: #fff;
+    width: 120px;
+    font-weight: lighter;
+    float: left;
+    line-height: 50px;
+}
+
+header ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+}
+
+header li {
+    list-style: none;
+    float: left;
+    color: #fff;
+    margin: 0 10px;
+    font-size: 12px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.container .add_todo {
+    width: 100%;
+    margin: 20px 0 20px 0;
+    height: 40px;
+    border-radius: 5px;
+    border: 0; /* border-radiusをつけると出てくる影を消す + 枠線を消す */
+    display: flex;
+}
+
+.container button {
+    display: block;
+    background: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px 0 0 5px;
+}
+
+.container input {
+    padding-left: 20px;
+    display: block;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    width: 1688px;
+    font-size: 15px;
+}
+
+#todoList {
+    margin: 0;
+    padding: 0;
+}
+
+#todoList li {
+    padding-left: 20px;
+    display: block;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 15px;
+    list-style: none;
+    background: #fff;
+    height: 40px;
+    margin: 0 0 1px 0;
+    line-height: 40px;
+}

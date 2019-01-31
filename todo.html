@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>ToDo App</title>
+</head>
+<body>
+<header>
+	<h2>ToDo App</h2>
+	<nav>
+		<ul>
+			<li>共有</li>
+			<li>並べ替え</li>
+			<li>その他</li>
+		</ul>
+	</nav>
+</header>
+<div class="container">
+	<form id="jsForm" class="add_todo" action="" method="post">
+		<button type="submit" onClick="submitItem();">＋</button>
+		<input id="jsInput" type="text" placeholder="ToDoを追加…" autocomplete="off">
+	</form>
+	<!--  <ul id="todoList"></ul>-->
+
+	<!-- 4. TodoアプリのメインとなるTodoリスト -->
+	<!--  <div id="jsTodolist" class="todolist">-->
+	<!-- 動的に更新されるTodoリスト -->
+	<!--  </div>-->
+	<script>
+        fetch('localhost:3000/samples/posts')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(body) {
+                document.body.innerHTML = body;
+            });
+        // const item = document.getElementById('item');
+        //
+        // function submitItem() {
+        //     let todoItems = [];
+        //     let todoItem = item.value;
+        //     if (todoItem === "") {
+        //         return event.preventDefault();
+        //     } else {
+        //         todoItems.push(todoItem);
+        //         item.value = "";
+        //         for (let i = 0; i < todoItems.length; i++) {
+        //             let li = document.createElement('li');
+        //             li.textContent = todoItems[i];
+        //             document.getElementById('todoList').appendChild(li);
+        //             event.preventDefault();
+        //             item.focus();
+        //         }
+        //     }
+        // }
+
+        // class EventEmitter {
+        //     constructor() {
+        //         // 登録する [イベント名, Set(リスナー関数)] を管理するMap
+        //         this._listeners = new Map();
+        //     }
+        //
+        //     /*
+        //      * 指定したイベントが実行されたときに呼び出されるリスナー関数を登録する
+        //      * @param {string} type イベント名
+        //      * @param {Function} listener イベントリスナー
+        //      */
+        //     addEventLister(type, listerner) {
+        //         // 指定したイベントに対応するSetを作成しリスナー関数を登録する
+        //         if (!this._listeners.has(type)) {
+        //             this._listeners.set(type, new Set());
+        //         }
+        //         const listenerSet = this._listeners.get(type);
+        //         listenerSet.add(listerner);
+        //     }
+        //
+        //     /*
+        //      * 指定したイベントをディスパッチする
+        //      * @param {string} type イベント名
+        //      */
+        //     emit(type) {
+        //         // 指定したイベントに対応するSetを取り出し、すべてのリスナー関数を呼び出す
+        //         const listenerSet = this._listeners.get(type);
+        //         if (!listenerSet) {
+        //             return;
+        //         }
+        //         listenerSet.forEach(listener => {
+        //             listener.call(this);
+        //         });
+        //     }
+        //
+        //     /* 指定したイベントのイベントリスナーを解除する
+        //      * @param {string} type イベント名
+        //      * @param {Function} listener イベントリスナー
+        //      */
+        //     removeEventLister(type, listener) {
+        //         // 指定したイベントに対応するSetを取り出し、該当するリスナー関数を削除する
+        //         const listenerSet = this._listeners.get(type);
+        //         if (!listenerSet) {
+        //             return;
+        //         }
+        //         listenerSet.forEach(ownListener => {
+        //             if (ownListener === listener) {
+        //                 listenerSet.delete(listener);
+        //             }
+        //         });
+        //     }
+        // }
+        //
+        // let todoIdx = 0;
+        //
+        // class TodoItemMode {
+        //     /**
+        //      * @param {string} title Todoアイテムのタイトル
+        //      * @param {boolean} completed Todoアイテムが完了済みならばtrue、そうでない場合はfalse
+        //      */
+        //     constructor({title, completed}) {
+        //         // idは自動的に連番となりそれぞれのインスタンス毎に異なるものとする
+        //         this.id = todoIdx++;
+        //         this.title = title;
+        //         this.completed = completed;
+        //     }
+        // }
+        //
+        // class TodoListModel extends EventEmitter {
+        //     /**
+        //      * @param {TodoItemModel[]} [items] 初期アイテム一覧（デフォルトは空の配列）
+        //      */
+        //     constructor(items = []) {
+        //         super();
+        //         this.items = items;
+        //     }
+        //
+        //     /**
+        //      * TodoItemの合計数を返す
+        //      * @returns {number}
+        //      */
+        //     get totalCount() {
+        //         return this.items.length;
+        //     }
+        //
+        //     /**
+        //      * 表示できるTodoItemの配列を返す
+        //      * @returns {TodoItemModel[]}
+        //      */
+        //     getTodoItems() {
+        //         return this.items;
+        //     }
+        //
+        //     /**
+        //      * TodoListの状態が更新されたときに呼び出されるリスナー関数を登録する
+        //      * @param {Function} listener
+        //      */
+        //     onChange(listener) {
+        //         this.addEventLister("change", listener);
+        //     }
+        //
+        //     /**
+        //      * 状態が変更されたときに呼ぶ。登録済みのリスナー関数を呼び出す
+        //      */
+        //     emitChange() {
+        //         this.emit("change");
+        //     }
+        //
+        //     /**
+        //      * TodoItemを追加する
+        //      * @param {TodoItemModel} todoItem
+        //      */
+        //     addTodo(todoItem) {
+        //         this.items.push(todoItem);
+        //         this.emitChange();
+        //     }
+        // }
+        //
+        // // モデルを使って表示を更新
+        // export class App {
+        //     constructor() {
+        //         // 1. TodoListの初期化
+        //         this.todoListModel = new TodoListModel();
+        //     }
+        //
+        //     mount() {
+        //         const formElement = document.getElementById("jsForm");
+        //         const inputElement = document.getElementById("jsInput")
+        //         const containerElement = document.getElementById("todoList");
+        //         // 2. TodoListModelの状態が更新されたら表示を更新する
+        //         this.todoListModel.onChange(() => {
+        //             // TodoリストをまとめるList要素
+        //             const todoListElement = element`<ul />`;
+        //             // それぞれのTodoItem要素をtodoListElement以下へ追加する
+        //             const todoItems = this.todoListModel.getTodoItems();
+        //             todoItems.forEach(item => {
+        //                 const todoItemElement = element`<li>${item.title}</li>`;
+        //                 todoListElement.appendChild(todoItemElement);
+        //             });
+        //             // containerElementの中身をtodoListElementで上書きする
+        //             render(todoListElement, containerElement);
+        //         });
+        //         // 3. フォームを送信したら、新しいTodoItemModelを追加する
+        //         formElement.addEventListener("submit", (event) => {
+        //             event.preventDefault();
+        //             // 新しいTodoItemをTodoListへ追加する
+        //             this.todoListModel.addTodo(new TodoItemModel({
+        //                 title: inputElement.value,
+        //                 completed: false
+        //             }));
+        //             inputElement.value = "";
+        //         });
+        //     }
+
+
+        focus(); // ページリロードで入力待ち状態にする
+	</script>
+</div>
+
+<script>
+    document.addEventListener('turbolinks:load', function () {
+        console.log('loaded');
+    });
+</script>
+</body>
+</html>
