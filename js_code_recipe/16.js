@@ -2,10 +2,8 @@ const myFruit = 'apple';
 
 switch (myFruit) {
     case 'apple':
-        alert('apple');
-        break;
     case 'orange':
-        alert('apple');
+        alert('apple or orange');
         break;
     default:
         alert('others');
